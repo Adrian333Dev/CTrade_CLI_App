@@ -3,17 +3,9 @@
 #include <string>
 using namespace std;
 
-void listMenu(vector<string> menu, bool isFirstTime)
-{
-  for (int i = 0; i < menu.size(); i++)
-    cout << i + 1 << ": " << menu[i] << endl;
-
-  cout << "=============================" << endl;
-  if (isFirstTime)
-    cout << "Type in 1-6 to select an option: ";
-  else
-    cout << "Invalid choice. Try again: ";
-}
+void listMenu(vector<string> menu, bool isFirstTime);
+int getChoice(vector<string> menu);
+void processChoice(int choice, vector<string> menuDetails);
 
 int main()
 {
@@ -33,6 +25,26 @@ int main()
       "Your wallet is empty. You need to make money",
       "Going to next time frame"};
 
+  int choice = getChoice(menu);
+  processChoice(choice, choiceDetails);
+
+  return 0;
+}
+
+void listMenu(vector<string> menu, bool isFirstTime)
+{
+  for (int i = 0; i < menu.size(); i++)
+    cout << i + 1 << ": " << menu[i] << endl;
+
+  cout << "=============================" << endl;
+  if (isFirstTime)
+    cout << "Type in 1-" << menu.size() << "to select an option: ";
+  else
+    cout << "Invalid choice. Try again: ";
+}
+
+int getChoice(vector<string> menu)
+{
   int choice;
   bool isFirstTime = true;
 
@@ -43,8 +55,11 @@ int main()
     cin >> choice;
   } while (choice < 1 || choice > 6);
 
-  cout << "You chose: " << choice << endl;
-  cout << choiceDetails[choice - 1] << endl;
+  return choice;
+}
 
-  return 0;
+void processChoice(int choice, vector<string> menuDetails)
+{
+  cout << "You chose: " << choice << endl;
+  cout << menuDetails[choice - 1] << endl;
 }
